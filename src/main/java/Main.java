@@ -7,12 +7,13 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        BookResponse bookResponse = FakeBooksDAO.bookDataAccsess();
-        List<BookData> books = bookResponse.data();
-        for(BookData book : books){
-            System.out.println(book);
-        }
-        FakeBooksDAO.BookDataAccsessWithQueries();
+//        BookResponse bookResponse = FakeBooksDAO.bookDataAccsess();
+//        List<BookData> books = bookResponse.data();
+//        for(BookData book : books){
+//            System.out.println(book);
+//        }
+//        FakeBooksDAO.BookDataAccsessWithQueries();
+        FakeBooksDAO.publicFlightsAccess();
 
     }
 }

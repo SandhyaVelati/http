@@ -2,6 +2,8 @@ package org.northcoders.dao;
 
 import org.northcoders.model.BookData;
 import org.northcoders.model.BookResponse;
+import org.northcoders.model.FlightDetails;
+import org.northcoders.model.FlightResponse;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -34,6 +36,31 @@ public class FakeBooksDAO {
             for (BookData book : bookResponse.data()){
                 System.out.println(book);
             }
+        }
+    }
+
+
+    public static void publicFlightsAccess(){
+        WebClient client = WebClient.builder()
+                .defaultHeaders(httpHeaders -> {
+                    httpHeaders.add("app_key","******");
+                    httpHeaders.add("app_id","*****");
+                    httpHeaders.add("ResourceVersion","v4");
+                    httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
+                })
+                .baseUrl("https://api.schiphol.nl/public-flights")
+                .build();
+        //WebClient client = WebClient.create();
+        FlightResponse flightDetails = client.get().uri(uriBuilder -> uriBuilder.path("/flights")
+                        .queryParam("includedelays",false)
+                        .queryParam("page",0)
+                        .queryParam("sort","+scheduleTime")
+                        .build())
+                .retrieve()
+                .bodyToMono(FlightResponse.class)
+                .block();
+        if(flightDetails != null){
+            System.out.println(flightDetails);
         }
     }
 
