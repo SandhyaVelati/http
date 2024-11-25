@@ -12,5 +12,7 @@ public class Main {
         for(BookData book : books){
             System.out.println(book);
         }
+        FakeBooksDAO.BookDataAccsessWithQueries();
+
     }
 }
